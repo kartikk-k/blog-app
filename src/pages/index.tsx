@@ -1,13 +1,23 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Header from '@/components/Header'
-import Header2 from '@/components/Header2'
+import Header2 from '@/components/Navbar'
 import Hero from '@/components/Hero'
+import { sanityClient, urlFor } from '../../sanity'
+import { Post } from '../../typings'
+import PostsList from '@/components/PostsList'
+import TrendingSection from '@/components/TrendingSection'
+import Topics from '@/components/Topics'
+import { useEffect, useState } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+interface Props {
+  posts: [Post]
+}
+
+export default function Home({ posts }: Props) {
+  console.log(posts)
+
   return (
     <>
       <Head>
@@ -17,12 +27,48 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='min-h-screen bg-white'>
+      <main className='bg-white pb-80 max-w-screen'>
         {/* <Header /> */}
         <Header2 />
-        <Hero />
-        {/* <div className='min-h-[120vh]'></div> */}
+        <section className='overflow-hidden max-w-screen'>
+          <Hero />
+
+          <TrendingSection />
+
+          <div className='flex flex-col-reverse grid-cols-5 mx-auto lg:flex-none lg:grid max-w-7xl'>
+            <PostsList posts={posts} />
+
+            <Topics />
+
+          </div>
+        </section>
       </main>
     </>
   )
+}
+
+export const getServerSideProps = async () => {
+
+  const query = `
+  *[_type == "post"]{
+  _id,
+    title,
+  slug,
+    author -> {
+      name,
+      image
+    },
+    description,
+    mainImage,
+    slug 
+}`
+
+  const posts = await sanityClient.fetch(query)
+  console.log("posts: ", posts)
+  return {
+    props: {
+      posts
+    }
+  }
+
 }
