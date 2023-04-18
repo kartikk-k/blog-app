@@ -3,5 +3,33 @@
 @tailwind components;
 @tailwind utilities;
 * {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
     font-family: 'Inter', sans-serif;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-200 rounded-full;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

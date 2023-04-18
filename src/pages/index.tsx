@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import Header from '@/components/Header'
-import Header2 from '@/components/Header2'
+import Header2 from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
 import PostsList from '@/components/PostsList'
 import TrendingSection from '@/components/TrendingSection'
 import Topics from '@/components/Topics'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 interface Props {
@@ -17,7 +17,6 @@ interface Props {
 
 export default function Home({ posts }: Props) {
   console.log(posts)
-
 
   return (
     <>
@@ -39,9 +38,8 @@ export default function Home({ posts }: Props) {
           <div className='flex flex-col-reverse grid-cols-5 mx-auto lg:flex-none lg:grid max-w-7xl'>
             <PostsList posts={posts} />
 
-            {/* <div className='col-span-2'> */}
             <Topics />
-            {/* </div> */}
+
           </div>
         </section>
       </main>

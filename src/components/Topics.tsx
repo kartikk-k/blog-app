@@ -11,7 +11,7 @@ function Topics() {
                 <Globe2 className='w-5' />
                 <h1 className='font-semibold'>Discover by topic</h1>
             </div>
-            <div className='flex w-screen pr-8 overflow-scroll md:block md:w-full md:overflow-hidden'>
+            <div className='flex w-screen pr-8 overflow-scroll custom-scrollbar md:block md:w-full md:overflow-hidden'>
                 {tags.map((tag, index) => (
                     <div key={index} className='inline-block px-3 py-1 my-1 mr-2 text-xs bg-gray-200 rounded-full'>{tag}</div>
                 ))}

@@ -13,14 +13,14 @@ const client = createClient({
     useCdn: true, // if you're using ISR or only static generation at build time then you can set this to `false` to guarantee no stale content
 })
 
-const data = async () => {
-    await client.fetch(groq`*[]`)
-}
+// const data = async () => {
+//     await client.fetch(groq`*[]`)
+// }
 
 export const sanityClient = client
 
 const builder = imageUrlBuilder(sanityClient)
 
 export const urlFor = (source) => {
-    return builder.image(source)
+    return builder.image(source).toString()
 }

@@ -9,12 +9,14 @@ interface Props {
 }
 
 function Posts({ postData }: Props) {
+
+
     return (
-        <Link href={`/${postData.slug}/`} className='flex items-center w-full gap-4 py-6'>
+        <Link href={`post/${postData.slug.current}/`} className='flex items-center w-full gap-4 py-6'>
             <div className='w-full space-y-1'>
                 <div className='flex items-center gap-2'>
                     {postData.author.image ? (
-                        <img src={urlFor(postData.author.image).url()} alt={postData.title} className='object-cover object-bottom rounded-full w-7 h-7' />
+                        <img src={urlFor(postData.author.image)} alt={postData.title} className='object-cover object-bottom rounded-full w-7 h-7' />
                     ) : (
                         <div className='bg-gray-400 rounded-full w-7 h-7'></div>
                     )}

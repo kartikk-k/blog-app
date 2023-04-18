@@ -3,7 +3,7 @@ import { Menu, Edit2, ArrowUpRight, Search } from 'lucide-react'
 import Link from 'next/link'
 import { MediumLogo } from '@/assets/icons'
 
-function Header2() {
+function Navbar() {
     return (
         <div className='sticky top-0 z-40 bg-white border-b backdrop-blur-lg border-b-gray-400 bg-opacity-40'>
             <div className='flex items-center justify-between p-2 mx-auto sm:p-4 max-w-7xl '>
@@ -12,7 +12,7 @@ function Header2() {
                     {/* <Link href="/" >
                         <MediumLogo className='h-4' />
                     </Link> */}
-                    <h1 className='text-xl font-black text-gray-800 cursor-pointer sm:text-2xl'>Medium</h1>
+                    <Link href="/" className='text-xl font-black text-gray-800 cursor-pointer sm:text-2xl'>Medium</Link>
                 </div>
 
                 <div className='flex items-center justify-end gap-2 sm:gap-4'>
@@ -31,4 +31,4 @@ function Header2() {
     )
 }
 
-export default Header2
+export default Navbar
