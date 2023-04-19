@@ -19,5 +19,18 @@ export interface Post {
     slug: {
         current: string;
     };
+    categories: Category[];
     body: [object];
+    comments: Comment[];
+}
+
+export interface Comment {
+    name: string;
+    comment: string;
+    _createdAt: string;
+}
+
+export interface Category {
+    _ref: string;
+    title: string;
 }

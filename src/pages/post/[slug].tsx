@@ -6,15 +6,16 @@ import Header2 from '@/components/Navbar'
 import Head from 'next/head'
 import { BookmarkPlus, Facebook, Linkedin, Share, Twitter } from 'lucide-react'
 import FloatingMenu from '@/components/FloatingMenu'
+import PortableText from 'react-portable-text'
+import Comments from '@/components/Comments'
 
 interface Props {
     post: Post
 }
 
 function Post({ post }: Props) {
-    console.log("single post: ", post)
-
     const [createdDate, setCreatedDate] = useState<String>()
+
 
     useEffect(() => {
         let date = new Date(post._createdAt).toDateString().split(" ")
@@ -68,12 +69,34 @@ function Post({ post }: Props) {
                         </div>
 
                         <div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia ipsa magni, eveniet odio qui excepturi! Itaque nihil ab illum officiis iste nobis quasi, tempora alias excepturi possimus non, sunt praesentium reprehenderit, dolor accusantium fugit veritatis expedita? Ducimus mollitia aut totam quam, atque harum sit doloremque iusto voluptatem dolorem, fugiat dolores consequatur soluta ea delectus voluptatum alias! Architecto doloribus nesciunt sapiente illo aspernatur et fugiat mollitia nisi. Incidunt cum qui iure fugit ut aliquid autem ullam obcaecati blanditiis, odit minus magnam. Beatae similique tenetur dolor velit dolorum? Eaque, quibusdam? Dolorum assumenda in sunt quis ad accusamus unde vitae inventore ex itaque!</p>
+                            <PortableText
+                                dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+                                projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+                                content={post.body}
+                                serializers={{
+                                    h1: (props: any) => <h1 className='my-1 text-2xl font-black text-gray-800' {...props} />,
+                                    h2: (props: any) => <h2 className='my-1 text-xl font-black text-gray-800' {...props} />,
+                                    p: (props: any) => <p className='my-1 text-gray-700 ' {...props} />,
+                                    normal: (props: any) => <p className='my-1 text-gray-700' {...props} />,
+                                    link: (props: any) => <a className='text-blue-500 underline' {...props} />,
+                                    blockquote: (props: any) => <p className='inline px-2 py-1 my-1 font-mono text-gray-600 bg-gray-200 rounded-md' {...props} />,
+                                }}
+                            />
+
+                            {/* pending: post tags!! */}
+                            {/* <div></div> */}
+
                             <FloatingMenu likeCount={200} commentCount={20} />
                         </div>
+
+                        <hr className='border-gray-300' />
+                        <Comments id={post._id} comments={post.comments} />
                     </div>
-                    <div className='hidden col-span-3 p-4 md:block'>
-                        <p>Hello</p>
+
+                    <div className='sticky hidden col-span-3 px-4 top-32 md:block'>
+                        <div className='sticky top-32'>
+                            <p>{post.author.name}</p>
+                        </div>
                     </div>
                 </div>
             </main>
@@ -121,6 +144,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       name,
         image
     },
+    'comments': *[  
+        _type == "comment" &&
+        post._ref == ^._id && 
+        approved == true
+        ],
+    categories,
     description,
     mainImage,
     slug,
