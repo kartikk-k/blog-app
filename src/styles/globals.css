@@ -9,6 +9,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

@@ -8,7 +8,6 @@ import { Post } from '../../typings'
 import PostsList from '@/components/PostsList'
 import TrendingSection from '@/components/TrendingSection'
 import Topics from '@/components/Topics'
-import { useEffect, useState } from 'react'
 
 
 interface Props {
