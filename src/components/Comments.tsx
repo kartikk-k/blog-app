@@ -62,10 +62,10 @@ function Comments({ id, comments }: Props) {
     }
 
     return (
-        <div id='comments' className='py-4'>
+        <div id='comments' className='py-4 border-b'>
             <div className='flex items-center justify-between'>
                 <h3 className='font-semibold text-gray-600 md:text-xl'>Comments</h3>
-                <PlusCircle onClick={() => setIsNewComment(!isNewComment)} className='w-5 h-5 text-gray-600 md:w-7 md:h-7' />
+                <PlusCircle onClick={() => setIsNewComment(!isNewComment)} className='w-5 h-5 text-gray-600 cursor-pointer md:w-7 md:h-7' />
                 {/* <button className='px-2 py-1 my-2 text-sm text-white bg-green-500 rounded-md '>Leave a Comment!</button> */}
             </div>
 
@@ -105,7 +105,7 @@ function Comments({ id, comments }: Props) {
 
             <div className='py-2 space-y-2'>
                 {comments && comments.map((comment) => (
-                    <div className=''>
+                    <div className='' key={comment._id}>
                         <p className='text-sm text-gray-600'><span className='pr-2 text-base font-bold text-green-600'>{comment.name}</span> {new Date(comment._createdAt).toLocaleDateString()}</p>
                         <p>{comment.comment}</p>
                     </div>

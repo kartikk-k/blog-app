@@ -4,6 +4,7 @@ export interface Post {
     title: string;
     author: {
         name: string;
+        _id: string;
         image: {
             asset: {
                 _ref: string;
@@ -25,6 +26,7 @@ export interface Post {
 }
 
 export interface Comment {
+    _id: string;
     name: string;
     comment: string;
     _createdAt: string;
