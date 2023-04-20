@@ -8,14 +8,17 @@ import { BookmarkPlus, Facebook, Linkedin, Share, Twitter } from 'lucide-react'
 import FloatingMenu from '@/components/FloatingMenu'
 import PortableText from 'react-portable-text'
 import Comments from '@/components/Comments'
+import PostSidebar from '@/components/PostSidebar'
 
 interface Props {
     post: Post
 }
 
 function Post({ post }: Props) {
+
     const [createdDate, setCreatedDate] = useState<String>()
 
+    console.log("posts: ", post)
 
     useEffect(() => {
         let date = new Date(post._createdAt).toDateString().split(" ")
@@ -35,7 +38,7 @@ function Post({ post }: Props) {
             <main>
                 <Header2 />
 
-                <div className='max-w-6xl grid-cols-9 gap-4 px-4 py-6 mx-auto md:py-12 md:grid lg:px-0'>
+                <div className='max-w-6xl grid-cols-9 gap-4 px-4 py-6 mx-auto md:py-12 md:grid'>
 
                     <div className='col-span-6'>
 
@@ -93,11 +96,8 @@ function Post({ post }: Props) {
                         <Comments id={post._id} comments={post.comments} />
                     </div>
 
-                    <div className='sticky hidden col-span-3 px-4 top-32 md:block'>
-                        <div className='sticky top-32'>
-                            <p>{post.author.name}</p>
-                        </div>
-                    </div>
+                    <PostSidebar post={post} />
+
                 </div>
             </main>
         </>
@@ -142,6 +142,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     slug,
     author -> {
       name,
+      _id,
         image
     },
     'comments': *[  
@@ -149,7 +150,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         post._ref == ^._id && 
         approved == true
         ],
-    categories,
     description,
     mainImage,
     slug,
