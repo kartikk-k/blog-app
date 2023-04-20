@@ -20,6 +20,7 @@ export interface Post {
     slug: {
         current: string;
     };
+    authorPosts: [];
     categories: Category[];
     body: [object];
     comments: Comment[];

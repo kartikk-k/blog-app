@@ -9,6 +9,7 @@ import FloatingMenu from '@/components/FloatingMenu'
 import PortableText from 'react-portable-text'
 import Comments from '@/components/Comments'
 import PostSidebar from '@/components/PostSidebar'
+import Image from 'next/image'
 
 interface Props {
     post: Post
@@ -45,7 +46,7 @@ function Post({ post }: Props) {
                         <div className='flex items-center justify-between'>
                             {/* post author info */}
                             <div className='flex items-center gap-4 '>
-                                <img src={urlFor(post.author.image)} alt="" className='object-cover w-10 h-10 rounded-full ring-offset-1 ring ring-green-600' />
+                                <Image width={500} height={500} src={urlFor(post.author.image)} alt="" className='object-cover w-10 h-10 rounded-full ring-offset-1 ring ring-green-600' />
                                 <div>
                                     <p className='text-sm font-semibold text-gray-600'>{post.author.name}</p>
                                     <p className='flex items-center text-xs text-gray-600'>{createdDate} <span className='px-2'>•</span> 8 min read</p>
@@ -68,7 +69,7 @@ function Post({ post }: Props) {
                         <div className='py-8 space-y-4'>
                             <h1 className='text-2xl font-black text-gray-800'>{post.title}.</h1>
                             <p className='text-sm text-gray-600'>{post.description}</p>
-                            <img src={urlFor(post.mainImage)} alt="" className='object-cover w-auto h-auto rounded-md' />
+                            <Image height={1000} width={1000} src={urlFor(post.mainImage)} alt="" className='object-cover w-full h-full rounded-md' />
                         </div>
 
                         <div>
@@ -96,7 +97,7 @@ function Post({ post }: Props) {
                         <Comments id={post._id} comments={post.comments} />
                     </div>
 
-                    <PostSidebar post={post} />
+                    <PostSidebar authorProfile={post.author} authorPosts={post.authorPosts} postId={post._id} />
 
                 </div>
             </main>
@@ -150,6 +151,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         post._ref == ^._id && 
         approved == true
         ],
+    'authorPosts': *[_type == "post" && author._ref == author._ref]{
+            _id,
+            title,
+            description,
+            mainImage,
+            slug,
+        },
     description,
     mainImage,
     slug,
