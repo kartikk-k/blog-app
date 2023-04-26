@@ -87,8 +87,15 @@ function Post({ post }: Props) {
                                 }}
                             />
 
-                            {/* pending: post tags!! */}
-                            {/* <div></div> */}
+                            {/* post categories!! */}
+                            <div className='flex gap-2 py-8 border-t'>
+                                {post.categories.map((category) => (
+                                    <span
+                                        key={category._id}
+                                        className='px-4 py-1 text-xs bg-gray-200 rounded-full md:text-sm'
+                                    >{category.title}</span>
+                                ))}
+                            </div>
 
                             <FloatingMenu likeCount={200} commentCount={20} />
                         </div>
@@ -158,6 +165,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             mainImage,
             slug,
         },
+    'categories': *[_type == "category" && _id in (*[_type == "post" && slug.current == $slug][0].categories[]._ref)]{title, _id},
     description,
     mainImage,
     slug,

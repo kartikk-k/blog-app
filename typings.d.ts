@@ -34,6 +34,7 @@ export interface Comment {
 }
 
 export interface Category {
+    _id: string;
     _ref: string;
     title: string;
 }

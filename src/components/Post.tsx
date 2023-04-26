@@ -27,10 +27,13 @@ function Posts({ postData }: Props) {
                 <h1 className='text-lg font-bold text-gray-800 md:font-black md:text-xl'>{postData.title}.</h1>
                 <p className='hidden text-gray-600 sm:block'>{postData.description}</p>
                 <div className='flex items-center justify-between'>
-                    <div className='flex gap-4'>
+                    <div className='flex flex-wrap gap-4'>
                         <p className='flex items-center text-xs text-gray-600'>Apr 10 <span className='px-1'>•</span> 8 min read</p>
-                        {/* post category */}
-                        <div className='px-3 py-1 text-xs bg-gray-200 rounded-full'>React</div>
+                        <div className='flex gap-2'>
+                            {postData.categories.map((category) => (
+                                <div key={category._id} className='px-3 py-1 text-xs bg-gray-200 rounded-full'>{category.title}</div>
+                            ))}
+                        </div>
                     </div>
                     <Bookmark className='text-gray-600' />
                 </div>
