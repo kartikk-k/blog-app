@@ -53,15 +53,8 @@ function Post({ post }: Props) {
                                 </div>
                             </div>
                             <div className='flex items-center gap-4 '>
-                                <div>
-                                    {/* <div className='hidden gap-4 md:flex'>
-                                    <Twitter className='w-5 text-gray-400 fill-gray-400 ' />
-                                    <Linkedin className='w-5 text-gray-400 fill-gray-400' />
-                                    <Facebook className='w-5 text-gray-400 fill-gray-400' />
-                                </div> */}
-                                    <Share className='w-5 text-gray-400 ' />
-                                </div>
-                                <BookmarkPlus className='w-5 text-gray-400' />
+                                <Share className='w-5 text-gray-400 cursor-pointer' />
+                                <BookmarkPlus className='w-5 text-gray-400 cursor-pointer' />
                             </div>
                         </div>
 
@@ -149,9 +142,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     body,
     slug,
     author -> {
+        _id,
       name,
-      _id,
-        image
+      image,
+      slug,
     },
     'comments': *[  
         _type == "comment" &&

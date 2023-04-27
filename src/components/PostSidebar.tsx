@@ -3,19 +3,23 @@ import { Post } from '../../typings'
 import { sanityClient, urlFor } from '../../sanity'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 interface Props {
     postId: string,
     authorProfile: {
         _id: string,
         name: string,
+        slug: {
+            current: string;
+        }
         image: {
             asset: {
                 _ref: string,
             }
         }
     }
-    authorPosts: [],
+    authorPosts?: [],
 }
 
 interface authPostStructure {
@@ -34,13 +38,22 @@ interface authPostStructure {
 
 function PostSidebar({ authorProfile, authorPosts, postId }: Props) {
 
+    let router = useRouter()
+
+    const handleProfileSearch = () => {
+        router.push({
+            pathname: '/search',
+            query: { author: authorProfile.slug.current }
+        })
+    }
+
     return (
         <div className='col-span-3 px-4 py-4 md:py-0 md:block'>
             <div className='top-32 md:sticky'>
                 <Image src={urlFor(authorProfile.image.asset._ref)} width={500} height={500} className='object-cover w-20 h-20 rounded-full' alt={authorProfile.name} />
 
                 <div className='py-4'>
-                    <p className='font-bold text-gray-700 cursor-pointer hover:underline'>{authorProfile.name}</p>
+                    <p onClick={() => handleProfileSearch()} className='font-bold text-gray-700 cursor-pointer hover:underline'>{authorProfile.name}</p>
                     <p className='text-sm text-gray-500'>120 Posts | 450 Likes</p>
                 </div>
 

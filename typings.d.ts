@@ -5,6 +5,9 @@ export interface Post {
     author: {
         name: string;
         _id: string;
+        slug: {
+            current: string;
+        };
         image: {
             asset: {
                 _ref: string;
