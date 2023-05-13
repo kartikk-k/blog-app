@@ -11,6 +11,7 @@ import PostSidebar from '@/components/PostSidebar'
 function index() {
 
     const [authorPosts, setAuthorPosts] = useState<[]>()
+    const [authorDetails, setAuthorDetails] = useState()
 
     let router = useRouter()
 
@@ -29,14 +30,13 @@ function index() {
             description,
             mainImage,
             slug,
-            author->{
-                _id,
-              name,
-              image{asset},
-              slug,
+            author -> {
+                  _id,
+                name,
+                image,
+                slug,
             },
             'categories': *[_type == "category" && _id in (*[_type == "post" && author->slug.current == $author][0].categories[]._ref)]{title, _id},
-            author
         }`
 
         let posts = await sanityClient.fetch(query, {
@@ -46,6 +46,8 @@ function index() {
         console.log("posts: ", posts)
 
         setAuthorPosts(posts)
+        setAuthorDetails(posts[0]?.author)
+        console.log("authorDetails: ", posts[0]?.author)
     }
 
     return (
@@ -65,7 +67,10 @@ function index() {
                         <Posts postData={post} key={post._id} />
                     ))}
                 </div>
-                {/* <PostSidebar authorProfile={} /> */}
+
+                {authorDetails && (
+                    <PostSidebar authorProfile={authorDetails} />
+                )}
             </main>
         </div>
     )
