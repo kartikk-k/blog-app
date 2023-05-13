@@ -8,7 +8,7 @@ import Posts from '@/components/Post'
 import PostSidebar from '@/components/PostSidebar'
 
 
-function index() {
+function Index() {
 
     const [authorPosts, setAuthorPosts] = useState<[]>()
     const [authorDetails, setAuthorDetails] = useState()
@@ -76,4 +76,4 @@ function index() {
     )
 }
 
-export default index
+export default Index
